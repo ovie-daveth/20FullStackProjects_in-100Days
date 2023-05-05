@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {BrowserRouter} from 'react-router-dom'
 import { configureStore } from '@reduxjs/toolkit';
@@ -23,7 +22,7 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <>
-  <ToastContainer />
+ 
   <React.StrictMode>
     <BrowserRouter>
         <Provider store={store}>

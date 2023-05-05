@@ -100,7 +100,10 @@ const OneSchedule = ({darkTheme}) => {
                         <span 
                          disabled={item.status === 'Ended' && true}
                         className={` ${item.status === 'Ended' && ' opacity-50'} bg-blue-400 text-blue-700 px-1 py-2 text-lg hover:text-blue-600 hover:bg-blue-300 transition-all ease-in-out duration-300 active:scale-90`}>
-                            <CopyToClipboard onCopy={()=> setCopy(true)} text={`localhost:3000/room/${item.meetingId}`}>
+                            <CopyToClipboard onCopy={()=> {
+                                setCopy(true)
+                                toast.success("Link copied succesfully")
+                                }} text={`localhost:3000/room/${item.meetingId}`}>
                               <button><AiOutlineCopy /></button>
                             </CopyToClipboard>    
                         </span>

@@ -11,6 +11,7 @@ import GroupMeeting from './pages/GroupMeeting';
 import OneSchedule from './pages/OneSchedule';
 import ManySchedule from './pages/ManySchedule';
 import Room from './pages/Room';
+import { ToastContainer } from 'react-toastify';
 
 
 function App() {
@@ -53,16 +54,26 @@ function App() {
           </div>
         ) : (
           <div>
-        
-              <Routes>
-                <Route  path="/" element={<Login/>}/>
-                <Route path="/home" element={<Home darkTheme={darkTheme} />}/>
-                <Route path="/create" element={<CreateMeeting darkTheme={darkTheme}/>}/>
-                <Route path="/meeting" element ={<OneMeeting  darkTheme={darkTheme}/>} />
-                <Route path="/meetings" element ={<GroupMeeting  darkTheme={darkTheme}/>} />
-                <Route path="/schedule" element ={<OneSchedule  darkTheme={darkTheme}/>} />
-                <Route path="/manyschedule" element ={<ManySchedule  darkTheme={darkTheme}/>} />
-                <Route path="/room/:roomId" element ={<Room  darkTheme={darkTheme}/>} />
+              <ToastContainer
+                  position="bottom-right"
+                  autoClose={1000}
+                  hideProgressBar={true}
+                  newestOnTop={false}
+                  closeOnClick
+                  pauseOnFocusLoss
+                  draggable
+                  pauseOnHover
+                  theme={darkTheme ? 'dark' : 'light'}
+              />
+                <Routes>
+                    <Route  path="/" element={<Login/>}/>
+                    <Route path="/home" element={<Home darkTheme={darkTheme} />}/>
+                    <Route path="/create" element={<CreateMeeting darkTheme={darkTheme}/>}/>
+                    <Route path="/meeting" element ={<OneMeeting  darkTheme={darkTheme}/>} />
+                    <Route path="/meetings" element ={<GroupMeeting  darkTheme={darkTheme}/>} />
+                    <Route path="/schedule" element ={<OneSchedule  darkTheme={darkTheme}/>} />
+                    <Route path="/manyschedule" element ={<ManySchedule  darkTheme={darkTheme}/>} />
+                    <Route path="/room/:roomId" element ={<Room  darkTheme={darkTheme}/>} />
               </Routes>
   
          </div>
