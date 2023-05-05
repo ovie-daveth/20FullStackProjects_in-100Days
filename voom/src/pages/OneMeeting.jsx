@@ -87,7 +87,7 @@ const createMeeting = async (e) => {
               <input type="text" id='name' placeholder='Meeting Name' className='border-[1px] border-gray-600 bg-white w-[100%] h-[40px] px-3 outline-none rounded-md' value={meetingName} onChange={(e) => setMeetingName(e.target.value)} onClick={handleInputClick} />
           </div>
           <div className="flex flex-col gap-1 ">
-              <label className='font-semibold' htmlFor="name">
+              <label className='font-semibold' htmlFor="name"> 
                 Invite a friend
               </label>
               <select name="user" id="user" className={`border-[1px] border-gray-600 bg-white w-[100%] h-[40px] px-3 font-semibold outline-none rounded-md ${darkTheme && 'text-black'}`}

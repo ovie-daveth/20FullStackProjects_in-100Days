@@ -57,6 +57,7 @@ const OneSchedule = ({darkTheme}) => {
     const closeEdit = () => {
         setEdit(false)
     }
+    
     const joinRoom = () => {
         const meetingToJoin = meetings.find((item) => item.status === 'Join room');
         if (meetingToJoin) {
@@ -64,6 +65,7 @@ const OneSchedule = ({darkTheme}) => {
           toast.success("Joined room successfully");
         }
       };
+      
       
     
     
@@ -118,7 +120,7 @@ const OneSchedule = ({darkTheme}) => {
        </table>
     </div>
     <div className={`${edit === true ? ' translate-x-0' : ' translate-x-[100%]'} transition-transform ease-in-out duration-500 fixed right-0 top-0 bottom-0 md:w-[50%]`}>
-        <EditMeeting darkTheme={darkTheme} closeEdit={closeEdit} />
+        <EditMeeting darkTheme={darkTheme} closeEdit={closeEdit} meetings={meetings}  />
     </div>
     </>
   )
