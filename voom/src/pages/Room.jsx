@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
 import { ZegoUIKitPrebuilt } from '@zegocloud/zego-uikit-prebuilt'
 import uuid from 'react-uuid'
+import { Rings } from 'react-loader-spinner'
 
 const Room = ({darkTheme}) => {
   const {roomId} = useParams()
@@ -14,9 +15,10 @@ const Room = ({darkTheme}) => {
   const {uid, name} = useSelector((store)=> store.user.value)
   const nav = useNavigate()
   console.log("This is the user name", name)
+  const [isLoading, setIsLoading] = useState(false)
   
   useEffect(() => {
-    
+    setIsLoading(true)
     setUserLoaded(true)
     const getMeetingData = async () => {
       if (roomId && userLoaded) {
@@ -79,6 +81,7 @@ const Room = ({darkTheme}) => {
   
   }
   getMeetingData()
+  setIsLoading(false)
   },[roomId, userLoaded, nav, uid])
 
   const app_ID = 1845378615;
@@ -115,14 +118,31 @@ const Room = ({darkTheme}) => {
 
   return (
     <>
-    <div className={`${darkTheme ? 'bg-black': 'bg-white'} py-2 w-full`}>
-      <button onClick={handleGoBack} className="md:text-lg text-sm font-semibold px-2 py-1 bg-blue-600 rounded-lg text-white">Go back</button>
-    </div>
     {
-      isAllowed && (
-        <div className='' ref={myMeeting} style={{width: "100%", height: "100vh"}}  >
-      
-      </div>
+      isLoading === true ? (
+        <Rings
+          height="240"
+          width="240"
+          color="#4fa94d"
+          radius="12"
+          wrapperStyle={{}}
+          wrapperClass=""
+          visible={true}
+          ariaLabel="rings-loading"
+        />
+      ) : (
+        <>
+        <div className={`${darkTheme ? 'bg-black': 'bg-white'} py-2 w-full`}>
+          <button onClick={handleGoBack} className="md:text-lg text-sm font-semibold px-2 py-1 bg-blue-600 rounded-lg text-white">Go back</button>
+        </div>
+        {
+          isAllowed && (
+            <div className='' ref={myMeeting} style={{width: "100%", height: "100vh"}}  >
+          
+          </div>
+          )
+        }
+        </>
       )
     }
     </>

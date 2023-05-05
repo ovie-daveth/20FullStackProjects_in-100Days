@@ -9,6 +9,7 @@ import { meetingRef } from '../firebaseConfig'
 import { toast } from 'react-toastify'
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 import Navigation from '../components/Navigation'
+import { Rings } from 'react-loader-spinner'
 
 const OneSchedule = ({darkTheme}) => {
     const {uid} = useSelector((store)=> store.user.value)
@@ -16,8 +17,10 @@ const OneSchedule = ({darkTheme}) => {
     const [edit, setEdit] = useState(false)
     const [meetings, setMeetings] = useState([])
     const [copy, setCopy] = useState(false)
+    const  [isLoading, setIsLoading] = useState(false)
 
     useEffect(() => {
+        setIsLoading(true)
         const getMeetinsg = async () => {
             const userQuery = query(meetingRef, where("createdBY", '==', uid));
             const fetchMeeting = await getDocs(userQuery);
@@ -49,6 +52,9 @@ const OneSchedule = ({darkTheme}) => {
             }
         }
         getMeetinsg()
+        if(getMeetinsg()){
+            setIsLoading(false)
+        }
     }, [uid])
 
     const showEdit = () => {
@@ -71,7 +77,23 @@ const OneSchedule = ({darkTheme}) => {
     
   return (
     <>
-    <Navigation />
+    {
+        isLoading === true ? (
+            <div className="absolute md:top-[30%] top-[20%] -translate-[50%] lg:left-[40%] md:left-[35%] left-[20%]">
+              <Rings
+                height="240"
+                width="240"
+                color="#4fa94d"
+                radius="12"
+                wrapperStyle={{}}
+                wrapperClass=""
+                visible={true}
+                ariaLabel="rings-loading"
+              />
+          </div>
+        ) : (
+            <>
+                 <Navigation />
     <div className='py-4'>
        <table className='w-[97%] m-auto mt-2 border-collapse flex flex-col gap-3'>
             <thead className='text-[12px] md:text-lg'>
@@ -119,6 +141,9 @@ const OneSchedule = ({darkTheme}) => {
            }
        </table>
     </div>
+            </>
+        )
+    }
     <div className={`${edit === true ? ' translate-x-0' : ' translate-x-[100%]'} transition-transform ease-in-out duration-500 fixed right-0 top-0 bottom-0 md:w-[50%]`}>
         <EditMeeting darkTheme={darkTheme} closeEdit={closeEdit} meetings={meetings}  />
     </div>

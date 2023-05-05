@@ -7,6 +7,7 @@ import { meetingRef } from '../firebaseConfig'
 import { toast } from 'react-toastify'
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 import Navigation from '../components/Navigation'
+import { Rings } from 'react-loader-spinner'
 
 const ManySchedule = ({darkTheme}) => {
     const {uid} = useSelector((store)=> store.user.value)
@@ -14,8 +15,10 @@ const ManySchedule = ({darkTheme}) => {
     const nav = useNavigate()
     const [meetings, setMeetings] = useState([])
     const [copy, setCopy] = useState(false)
+    const [isLoading, setIsLoading] = useState(false)
 
     useEffect(() => {
+        setIsLoading(true)
         const getMeetinsg = async () => {
             const userQuery = query(meetingRef, where("createdBY", '!=', uid));
             const fetchMeeting = await getDocs(userQuery);
@@ -48,6 +51,7 @@ const ManySchedule = ({darkTheme}) => {
             }
         }
         getMeetinsg()
+        setIsLoading(false)
     }, [uid])
 
    
@@ -62,7 +66,23 @@ const ManySchedule = ({darkTheme}) => {
     
   return (
     <>
-    <Navigation />
+    {
+        isLoading === true ? (
+            <div className="absolute md:top-[30%] top-[20%] -translate-[50%] lg:left-[40%] md:left-[35%] left-[20%]">
+              <Rings
+                height="240"
+                width="240"
+                color="#4fa94d"
+                radius="12"
+                wrapperStyle={{}}
+                wrapperClass=""
+                visible={true}
+                ariaLabel="rings-loading"
+              />
+          </div>
+        ) : (
+            <>
+             <Navigation />
     <div className='py-4'>
        <table className='w-[97%] m-auto mt-2 border-collapse flex flex-col gap-3'>
             <thead className='text-[12px] md:text-lg px-2'>
@@ -105,6 +125,10 @@ const ManySchedule = ({darkTheme}) => {
            }
        </table>
     </div>
+            </>
+        )
+    }
+   
     
     </>
   )
