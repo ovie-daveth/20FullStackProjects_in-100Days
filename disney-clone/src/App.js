@@ -5,12 +5,14 @@ import Header from './components/Header'
 
 const App = () => {
   return (
+    <>
     <BrowserRouter>
     <Header />
         <Routes>
           <Route exact path='/' element={<Login />} />
         </Routes>
     </BrowserRouter>
+    </>
   )
 }
 
