@@ -43,7 +43,7 @@ const GoogleSignUpButton = ({text, setIsLogin, setShowLogin}) => { //This props 
     }
 
   return (
-    <p className='group bg-yellow-500 hover:bg-yellow-400 py-1 w-full text-slate-600 hover:text-slate-500 font-semibold flex items-center justify-between px-3 gap-2' onClick={GoogleSignUp}>{text} <span className='group-hover:bg-slate-100 text-xl rounded-full border-none bg-white p-1'><FcGoogle /></span></p>
+    <p className='cursor-pointer group bg-yellow-500 hover:bg-yellow-400 py-1 w-full text-slate-600 hover:text-slate-500 font-semibold flex items-center justify-between px-3 gap-2' onClick={GoogleSignUp}>{text} <span className='group-hover:bg-slate-100 text-xl rounded-full border-none bg-white p-1'><FcGoogle /></span></p>
   )
 }
 
