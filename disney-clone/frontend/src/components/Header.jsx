@@ -186,7 +186,9 @@ const Header = () => {
                 setTimeout(()=> {
                     setError(false)
                     setErrorMessage("")
+                    setComfirmPassword("")
                 }, 3000)
+                setPassword('')
             } else{
                 const saltRounds = 10;
                 const hashedPassword = await bcrypt.hash(password, saltRounds);
@@ -295,20 +297,20 @@ const Header = () => {
                                         <input className='w-full bg-gray-500 text-white placeholder:text-white px-2 py-1 placeholder:text-sm text-sm rounded-md outline-none' type="text" placeholder='Enter first name'  value={fname} onChange={(e) => setFname(e.target.value)} />
                                     </div>
                                     <div className="block relative">
-                                        <input className='w-full bg-gray-500 text-white placeholder:text-white px-2 py-1 placeholder:text-sm text-sm rounded-md outline-none' type={hidePassword ? 'password' : 'text'} placeholder='Enter Password'  value={password} onChange={(e) => setPassword(e.target.value)} />
+                                        <input className='w-full bg-gray-500 text-white placeholder:text-white px-2 py-1 placeholder:text-sm text-sm rounded-md outline-none' type={!hidePassword ? 'password' : 'text'} placeholder='Enter Password'  value={password} onChange={(e) => setPassword(e.target.value)} />
                                         <p onClick={handleHidePassword} className='absolute right-2 top-2 text-white'>
                                             {
-                                                hidePassword ? (<AiFillEye />) : (
+                                                !hidePassword ? (<AiFillEye />) : (
                                                     <AiFillEyeInvisible />
                                                 )
                                             }
                                         </p>
                                     </div>
                                     <div className="block relative">
-                                        <input className='w-full bg-gray-500 text-white placeholder:text-white px-2 py-1 placeholder:text-sm text-sm rounded-md outline-none' type={hidePassword ? 'password' : 'text'} placeholder='Comfirm Passowrd'  value={comfirmPassword} onChange={(e) => setComfirmPassword(e.target.value)} />
+                                        <input className='w-full bg-gray-500 text-white placeholder:text-white px-2 py-1 placeholder:text-sm text-sm rounded-md outline-none' type={!hidePassword ? 'password' : 'text'} placeholder='Comfirm Passowrd'  value={comfirmPassword} onChange={(e) => setComfirmPassword(e.target.value)} />
                                         <p onClick={handleHidePassword} className='absolute right-2 top-2 text-white'>
                                             {
-                                                hidePassword ? (<AiFillEye />) : (
+                                                !hidePassword ? (<AiFillEye />) : (
                                                     <AiFillEyeInvisible />
                                                 )
                                             }
@@ -337,10 +339,10 @@ const Header = () => {
                                             <input className='w-full bg-gray-500 text-white placeholder:text-white px-2 py-1 placeholder:text-sm text-sm rounded-md outline-none' type="text" placeholder='Enter Email'  value={email} onChange={(e) => setEmail(e.target.value)} />
                                         </div>
                                         <div className="block relative">
-                                            <input className='w-full bg-gray-500 text-white placeholder:text-white px-2 py-1 placeholder:text-sm text-sm rounded-md outline-none' type={hidePassword ? 'password' : 'text'} placeholder='Enter Password'  value={password} onChange={(e) => setPassword(e.target.value)} />
+                                            <input className='w-full bg-gray-500 text-white placeholder:text-white px-2 py-1 placeholder:text-sm text-sm rounded-md outline-none' type={!hidePassword ? 'password' : 'text'} placeholder='Enter Password'  value={password} onChange={(e) => setPassword(e.target.value)} />
                                             <p onClick={handleHidePassword} className='absolute right-2 top-2 text-white'>
                                             {
-                                                hidePassword ? (<AiFillEye />) : (
+                                                !hidePassword ? (<AiFillEye />) : (
                                                     <AiFillEyeInvisible />
                                                 )
                                             }
