@@ -4,7 +4,11 @@
 }
 html{
   scroll-behavior: smooth;
-}body {
+}
+body::-webkit-scrollbar{
+  display: none;
+}
+body {
   background-color: #040714;
   color: #f9f9f9;
 
@@ -23,6 +27,31 @@ a {
 .animated-button {
   animation: colorChange 2s infinite;
 }
+
+.slider-wrapper {
+  width: 100%;
+  overflow: hidden;
+}
+
+.slider-content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: transform 0.3s ease;
+}
+
+.slider-item {
+  flex: 0 0 25%;
+  width: 25%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.slider-icon {
+  cursor: pointer;
+  font-size: 30px;
+}
+
 
 @keyframes colorChange {
   0% {
