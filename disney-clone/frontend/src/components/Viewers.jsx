@@ -14,7 +14,7 @@ const Viewers = () => {
     const vids = [vid1, vid2, vid5, vid3, vid4]
     const views = [view1, view2, view5, view3, view4]
   return (
-    <div className='grid lg:grid-cols-5 md:grid-cols-3 grid-cols-1 mt-2 gap-2 px-6'>
+    <div className='grid lg:grid-cols-5 md:grid-cols-3 grid-cols-1 mt-5 md:mt-3 gap-2 px-6'>
         {views.map((view, index) => (
         <div key={index} className="block relative group border-[2px] border-gray-500 rounded-md hover:scale-105 transition-transform duration-500 ease-in-out">
           <img src={view} alt={`view${index}`} className='  ' />

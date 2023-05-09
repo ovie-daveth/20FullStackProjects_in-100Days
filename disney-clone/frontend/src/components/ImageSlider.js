@@ -47,7 +47,7 @@ const ImageSlider = () => {
               key={index}
               src={slide}
               alt="slider"
-              className="w-[100vw] h-[350px] object-cover"
+              className="w-[100%] md:h-[350px] h-[180px] md:object-cover"
             />
           ))}
         </div>
