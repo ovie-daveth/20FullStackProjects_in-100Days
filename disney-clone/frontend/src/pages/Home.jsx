@@ -3,8 +3,7 @@ import homebg from "../assets/images/home-background.png"
 import ImageSlider from '../components/ImageSlider'
 import Viewers from '../components/Viewers';
 import Recommends from '../components/Recommends';
-import { movies } from '../FetchDataFromAPI';
-import axios from 'axios';
+import { getPopularMovies, getTrendingMovies, getNewMovies, getOriginalMovies } from '../FetchDataFromAPI';
 
 const Home = () => {
   const [popularmovies, setPopularMovies] = useState([])
@@ -12,49 +11,36 @@ const Home = () => {
   const [newMovies, setNewMovies] = useState([])
   const [originalMovies, setOriginalMovies] = useState([])
 
-  const popularurl = "https://api.themoviedb.org/3/movie/popular?api_key=05fae875ba825af281bcb0a5583071e1&append_to_response=videos,images"
-  const trendingurl = "https://api.themoviedb.org/3/movie/top_rated?api_key=05fae875ba825af281bcb0a5583071e1&append_to_response=videos,images"
-  const newurl = "https://api.themoviedb.org/3/movie/now_playing?api_key=05fae875ba825af281bcb0a5583071e1&append_to_response=videos,images"
-  const originalurl = "https://api.themoviedb.org/3/movie/upcoming?api_key=05fae875ba825af281bcb0a5583071e1&append_to_response=videos,images";
 
-  useEffect(()=>{
-    const getPopularMovie = async () =>{
-      axios.get(popularurl).then(response => {
-        console.log(response.data.results)
-        setPopularMovies(response.data.results)
-      }).catch((err) => {
-        console.log("error message", err)
-      })
-    }
-    const getTrendingMovies = ()=> {
-      axios.get(trendingurl).then(response => {
-        console.log(response.data.results)
-        setTrendingMovies(response.data.results)
-      }).catch((err) => {
-        console.log("error message", err)
-      })
-    }
-    const getNewMovies = ()=> {
-      axios.get(newurl).then(response => {
-        console.log(response.data.results)
-        setNewMovies(response.data.results)
-      }).catch((err) => {
-        console.log("error message", err)
-      })
-    }
-    const getOrignalMovies = ()=> {
-      axios.get(originalurl).then(response => {
-        console.log(response.data.results)
-        setOriginalMovies(response.data.results)
-      }).catch((err) => {
-        console.log("error message", err)
-      })
-    }
-    getPopularMovie()
-    getTrendingMovies()
-    getNewMovies()
-    getOrignalMovies()
-  }, [])
+  //While i was using the static data
+
+  // const popularurl = "https://api.themoviedb.org/3/movie/popular?api_key=05fae875ba825af281bcb0a5583071e1&append_to_response=videos,images"
+  // const trendingurl = "https://api.themoviedb.org/3/movie/top_rated?api_key=05fae875ba825af281bcb0a5583071e1&append_to_response=videos,images"
+  // const newurl = "https://api.themoviedb.org/3/movie/now_playing?api_key=05fae875ba825af281bcb0a5583071e1&append_to_response=videos,images"
+  // const originalurl = "https://api.themoviedb.org/3/movie/upcoming?api_key=05fae875ba825af281bcb0a5583071e1&append_to_response=videos,images";
+
+
+  useEffect(() => {
+    const fetchMovies = async () => {
+      try {
+        const popularMoviesData = await getPopularMovies();
+        setPopularMovies(popularMoviesData);
+
+        const trendingMoviesData = await getTrendingMovies();
+        setTrendingMovies(trendingMoviesData);
+
+        const newMoviesData = await getNewMovies();
+        setNewMovies(newMoviesData);
+
+        const originalMoviesData = await getOriginalMovies();
+        setOriginalMovies(originalMoviesData);
+      } catch (error) {
+        console.error('Error fetching movies:', error);
+      }
+    };
+
+    fetchMovies();
+  }, []);
   
   // const newMovies = movies.filter(movie => movie.type === 'new');
   // const recommendMovies = movies.filter(movie => movie.type === 'recommend');
