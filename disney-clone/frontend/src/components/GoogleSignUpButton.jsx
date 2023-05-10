@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 import { login } from '../states/reducers/userSlice';
 import { toast } from 'react-toastify';
 
-
+ 
 const GoogleSignUpButton = ({text, setIsLogin, setShowLogin}) => { //This props are from te header compoent to update the state when user is logged in
 
   const provider = new GoogleAuthProvider(); 

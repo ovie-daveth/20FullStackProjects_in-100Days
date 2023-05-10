@@ -4,6 +4,7 @@ import ImageSlider from '../components/ImageSlider'
 import Viewers from '../components/Viewers';
 import Recommends from '../components/Recommends';
 import { getPopularMovies, getTrendingMovies, getNewMovies, getOriginalMovies } from '../FetchDataFromAPI';
+import Footer from '../components/Footer';
 
 const Home = () => {
   const [popularmovies, setPopularMovies] = useState([])
@@ -48,13 +49,14 @@ const Home = () => {
   // const originalMovies = movies.filter(movie => movie.type === 'original');
 
   return (
-    <div className="mt-16 overflow-hidden">
+    <div className="my-16 overflow-hidden">
       <ImageSlider />
       <Viewers />
       <Recommends videoclass="Recommended for you" movie={popularmovies} />
       <Recommends videoclass="New to Disney+" movie={newMovies} />
       <Recommends videoclass="Trending" movie={trendingMovies} />
       <Recommends videoclass="Upcoming Movies" movie={originalMovies} />
+      <Footer />
       <div className="-z-10 absolute top-16">
         <img src={homebg} alt="bg" className="w-[100vw] h-screen" />
       </div>

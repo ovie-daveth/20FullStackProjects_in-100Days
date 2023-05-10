@@ -7,10 +7,12 @@ import 'react-toastify/dist/ReactToastify.css';
 import { configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
 import userSlice from './states/reducers/userSlice';
+import movieSlice from './states/reducers/movieSlice';
 
 const store = configureStore({
   reducer: {
     user: userSlice,
+    movie: movieSlice,
   }
 })
 

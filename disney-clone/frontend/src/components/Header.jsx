@@ -27,7 +27,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { login, logout } from '../states/reducers/userSlice'
 import { app } from '../firebaseConfig'
 
-const Header = () => {
+const Header = () => { 
     // creating a list of objects for my menus
     const menu = [
         {
@@ -194,13 +194,14 @@ const Header = () => {
                 const hashedPassword = await bcrypt.hash(password, saltRounds);
                 // console.log('Hashed Password:', hashedPassword);
                 const user = {
+                    uid: hashedPassword,
                     name: fname,
                     email: email,
                     password: hashedPassword,
                     photoURL: image
                 }
                 // console.log("The new user", user)
-                const userData = {name: user.name, email: user.email, photoURL: user.photoURL}
+                const userData = {name: user.name, email: user.email, photoURL: user.photoURL, uid: user.uid}
                 // console.log("UserData", userData)
                 localStorage.setItem("user", JSON.stringify(userData))
                 dispatch(login(userData))
