@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-mongoose.connect("mongodb+srv://disney:disney123@cluster0.3uhvrke.mongodb.net/?retryWrites=true&w=majority").then(()=> {
+mongoose.connect(`${process.env.MONGOOSE_CONNNECTION}`).then(()=> {
     console.log("Mongo connected")
 }).catch((err)=> {
     console.log("Failed to connect due to", err);
