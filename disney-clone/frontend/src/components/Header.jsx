@@ -144,8 +144,13 @@ const Header = () => {
 
     //SignUp form
     const [isValid, setIsValid] = useState(false);
+    //Sign IN form
+    
     const handleSignUp = async (e) => {
         e.preventDefault()
+        // const saltRounds = 10;
+        // const hashedPassword = await bcrypt.hash(password, saltRounds);
+        // console.log('Hashed Password:', hashedPassword);
         const uppercaseRegex = /[A-Z]/;
         const lowercaseRegex = /[a-z]/;
         const numberRegex = /[0-9]/;
@@ -190,24 +195,42 @@ const Header = () => {
                 }, 3000)
                 setPassword('')
             } else{
-                const saltRounds = 10;
-                const hashedPassword = await bcrypt.hash(password, saltRounds);
-                // console.log('Hashed Password:', hashedPassword);
-                const user = {
-                    uid: hashedPassword,
-                    name: fname,
-                    email: email,
-                    password: hashedPassword,
-                    photoURL: image
-                }
-                // console.log("The new user", user)
-                const userData = {name: user.name, email: user.email, photoURL: user.photoURL, uid: user.uid}
-                // console.log("UserData", userData)
-                localStorage.setItem("user", JSON.stringify(userData))
-                dispatch(login(userData))
-                toast.success(`Hey ${user.name}, your account is created`)
-                setIsLogin(true)
+               
+            const user = {
+                name: fname,
+                email: email,
+                password: password,
+                photoURL: image
             }
+            
+            try {
+                const response = await fetch("http://localhost:3001/api/register", {
+                method: 'POST',
+                headers: {
+                    "Content-Type": 'application/json',
+                },
+                body: JSON.stringify({
+                    name: user.name,
+                    email: user.email,
+                    password: user.password,
+                    photourl: user.photoURL,
+                })
+            });
+          
+            const data = await response.json();
+            console.log('This is the data', data.name);
+             // console.log("The new user", user)
+             const userData = {name: data.name, email: data.email, photoURL: data.photourl, uid: data.uid}
+             // console.log("UserData", userData)
+             localStorage.setItem("user", JSON.stringify(userData))
+             dispatch(login(userData))
+             toast.success(`Hey ${user.name}, your account is created`)
+             setIsLogin(true)
+          } catch (error) {
+            console.log(error);
+            toast.error(error)
+          }
+    }
         } else{
             setError(true)
             setErrorMessage("Your password does not match")
@@ -217,13 +240,23 @@ const Header = () => {
             }, 2000)
         }
     }
+          
 
-    //Sign IN form
-    const handleLogin = (e) => {
+    const handleLogin = async (e) => {
         e.preventDefault()
-        setIsLogin(true) // when user is signed in
-        toast.success("You can now explore")
-        console.log("stored data", storedData)
+        const response = await fetch("http://localhost:3001/api/login", {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                email, password
+            })}
+        )
+        const data = await response.json()
+        console.log(data)
+        toast.success(` You are signed in`)
+        setIsLogin(true)
     }
 
     //Logout 
